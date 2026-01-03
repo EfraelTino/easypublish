@@ -1,0 +1,51 @@
+# ===========================
+# DEPENDENCIAS GLOBALES
+# ===========================
+node_modules/
+.pnpm-store/
+
+# ===========================
+# SEGURIDAD (¡CRÍTICO!)
+# ===========================
+# Bloquea .env en TODAS las carpetas
+.env
+.env.local
+.env.*.local
+*.pem
+# Excepción para el ejemplo
+!.env.example
+
+# ===========================
+# FRONTEND (React / Vite)
+# ===========================
+dist/
+build/
+coverage/
+*.log
+
+# ===========================
+# BACKEND (Python / FastAPI / Flask)
+# ===========================
+# Entornos virtuales (cubre varios nombres comunes)
+venv/
+.venv/
+env/
+.env/
+
+# Archivos compilados y caché de Python (¡Importante!)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Si usas base de datos SQLite local
+*.sqlite3
+*.db
+
+# ===========================
+# SISTEMA OPERATIVO E IDEs
+# ===========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
