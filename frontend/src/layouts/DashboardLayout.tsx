@@ -14,6 +14,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { useCurrentUser } from "@/hooks/use-current-user"
+import { Loading } from "@/components/sections/Loading"
+import { AudioWaveform } from "lucide-react"
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -21,9 +24,20 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children, breadcrumbs = [] }: DashboardLayoutProps) {
+  const { data, isLoading, isError } = useCurrentUser();
+  if (isLoading) return <Loading />;
+  if (isError) return <div>Error al cargar usuario</div>;
+  const teams = data?.org ? [
+    {
+      name: data.org.name,
+      logo: AudioWaveform, // TeamSwitcher suele pedir un logo/icono
+      plan: "Gratis",      // TeamSwitcher suele pedir un plan
+      id: data.org.id      // Mantenemos el ID original
+    }
+  ] : [];
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar user={data?.user} profile={data?.profile} org={teams} />
       <SidebarInset>
         {/* HEADER */}
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
